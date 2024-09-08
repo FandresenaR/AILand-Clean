@@ -162,12 +162,12 @@ export default function Home() {
                     <Pie
                       data={latrineData}
                       cx={200}
-                      cy={180}  // Moved the pie chart up
+                      cy={180}
                       labelLine={false}
-                      outerRadius={130}  // Reduced the outer radius
+                      outerRadius={130}
                       fill="#8884d8"
                       dataKey="value"
-                      label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                      label={({ percent }) => `${(percent * 100).toFixed(0)}%`}
                     >
                       {latrineData.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
