@@ -92,20 +92,20 @@ export default function Home() {
 
   return (
     <div className={`min-h-screen ${darkMode ? 'bg-gray-900 text-white' : 'bg-gray-100 text-black'}`}>
-      <header className="bg-navy-900 text-white p-4 shadow-md flex justify-between items-center">
+      <header className="bg-gradient-to-r from-black to-navy-900 text-white p-4 rounded-full shadow-lg flex justify-between items-center max-w-6xl mx-auto my-4">
         <div className="flex items-center">
           <img src="/logo.png" alt="AiLandClean Logo" className="h-10 mr-4" />
           <h1 className="text-2xl font-light font-montserrat-alternates">AiLandClean</h1>
         </div>
         <div className="flex space-x-4">
           <button
-            className="px-4 py-2 rounded bg-blue-500 hover:bg-blue-600 transition-colors"
+            className="px-4 py-2 rounded-full bg-blue-500 hover:bg-blue-600 transition-colors text-sm"
             onClick={toggleMapType}
           >
             {mapType === 'satellite-v9' ? 'Switch to Streets' : 'Switch to Satellite'}
           </button>
           <button
-            className={`p-2 rounded-full ${darkMode ? 'bg-yellow-400 text-gray-900' : 'bg-gray-200 text-gray-700'}`}
+            className={`p-2 rounded-full ${darkMode ? 'bg-yellow-400 text-gray-900' : 'bg-gray-200 text-gray-700'} hover:opacity-80 transition-opacity`}
             onClick={toggleDarkMode}
           >
             {darkMode ? (
