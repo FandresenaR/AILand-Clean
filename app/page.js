@@ -92,28 +92,44 @@ export default function Home() {
 
   return (
     <div className={`min-h-screen ${darkMode ? 'bg-gray-900 text-white' : 'bg-gray-100 text-black'}`}>
-      <header className="bg-navy-900 text-white p-4 shadow-md flex justify-between items-center">
+      <header className={`p-4 rounded-full shadow-lg flex justify-between items-center max-w-6xl mx-auto my-4 ${
+        darkMode 
+          ? 'bg-gradient-to-r from-gray-800 to-gray-900 text-white' 
+          : 'bg-gradient-to-r from-white to-gray-100 text-gray-900'
+      }`}>
         <div className="flex items-center">
           <img src="/logo.png" alt="AiLandClean Logo" className="h-10 mr-4" />
           <h1 className="text-2xl font-light font-montserrat-alternates">AiLandClean</h1>
         </div>
         <div className="flex space-x-4">
           <button
-            className="px-4 py-2 rounded bg-blue-500 hover:bg-blue-600 transition-colors"
+            className={`px-4 py-2 rounded-full transition-colors text-sm ${
+              darkMode
+                ? 'bg-blue-600 hover:bg-blue-700 text-white'
+                : 'bg-blue-500 hover:bg-blue-600 text-white'
+            }`}
             onClick={toggleMapType}
           >
             {mapType === 'satellite-v9' ? 'Switch to Streets' : 'Switch to Satellite'}
           </button>
-          <button
-            className={`p-2 rounded-full ${darkMode ? 'bg-yellow-400 text-gray-900' : 'bg-gray-200 text-gray-700'}`}
-            onClick={toggleDarkMode}
-          >
-            {darkMode ? (
-              <SunIcon className="h-6 w-6" />
-            ) : (
-              <MoonIcon className="h-6 w-6" />
-            )}
-          </button>
+          <div className="relative w-14 h-7 rounded-full bg-gray-200 dark:bg-gray-700 transition-colors duration-300 ease-in-out">
+            <button
+              className="absolute inset-0 flex items-center justify-between p-1"
+              onClick={toggleDarkMode}
+            >
+              <span className={`w-5 h-5 rounded-full ${darkMode ? 'bg-gray-700 text-yellow-400' : 'bg-white text-gray-700'} flex items-center justify-center transition-colors duration-300 ease-in-out`}>
+                <SunIcon className="h-3 w-3" />
+              </span>
+              <span className={`w-5 h-5 rounded-full ${darkMode ? 'bg-gray-900 text-blue-200' : 'bg-gray-300 text-gray-500'} flex items-center justify-center transition-colors duration-300 ease-in-out`}>
+                <MoonIcon className="h-3 w-3" />
+              </span>
+            </button>
+            <div 
+              className={`absolute w-7 h-7 rounded-full bg-white shadow-md transform transition-transform duration-300 ease-in-out ${
+                darkMode ? 'translate-x-full' : 'translate-x-0'
+              }`}
+            ></div>
+          </div>
         </div>
       </header>
       <main className="container mx-auto p-4">
@@ -121,7 +137,7 @@ export default function Home() {
           <div ref={mapContainer} className="h-[400px] w-full"></div>
         </div>
         <div className={`bg-white rounded-lg shadow-lg p-6 ${darkMode ? 'bg-gray-800' : ''}`}>
-          <h2 className="text-2xl font-bold mb-4">Latrine Distribution by Region</h2>
+          <h2 className="text-2xl font-bold font-montserrat-alternates">Latrine Distribution by Region</h2>
           {isLoading ? (
             <div className="flex justify-center items-center h-[400px]">
               <p className="text-xl">Loading data...</p>
@@ -149,7 +165,7 @@ export default function Home() {
                 </PieChart>
               </div>
               <div className="w-full md:w-1/2">
-                <h3 className="text-xl font-semibold mb-2">Key Insights:</h3>
+                <h3 className="text-xl font-semibold font-montserrat-alternates">Key Insights:</h3>
                 <ul className="list-disc pl-5">
                   <li>{latrineData[0]?.name} has the highest number of latrines ({latrineData[0]?.value})</li>
                   <li>{latrineData[2]?.name} has the lowest number of latrines ({latrineData[2]?.value})</li>
