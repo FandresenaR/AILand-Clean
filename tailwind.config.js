@@ -10,6 +10,12 @@ module.exports = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        navy: {
+          900: '#172554',
+        },
+      },
+      fontFamily: {
+        'montserrat-alternates': ['var(--font-montserrat-alternates)'],
       },
     },
   },

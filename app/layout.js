@@ -1,5 +1,6 @@
 import localFont from "next/font/local";
 import "./globals.css";
+import { Montserrat_Alternates } from 'next/font/google';
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -11,6 +12,11 @@ const geistMono = localFont({
   variable: "--font-geist-mono",
   weight: "100 900",
 });
+const montserratAlternates = Montserrat_Alternates({
+  subsets: ['latin'],
+  weight: ['400', '700'], // Add the weights you need, e.g., normal (400) and bold (700)
+  variable: '--font-montserrat-alternates',
+});
 
 export const metadata = {
   title: "Create Next App",
@@ -20,9 +26,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${montserratAlternates.variable} font-sans`}>
         {children}
       </body>
     </html>
