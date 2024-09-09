@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanitation Data Analysis Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; line-height: 1.6; }
+        h1, h2 { color: #333; }
+        .stats { display: flex; flex-wrap: wrap; justify-content: space-between; margin-bottom: 20px; }
+        .stat-box { background-color: #f0f0f0; padding: 15px; border-radius: 5px; margin-bottom: 10px; flex-basis: calc(33% - 10px); }
+        .plot { max-width: 100%; height: auto; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .data-summary { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Sanitation Data Analysis Dashboard</h1>
+    
+    <div class="stats">
+        <div class="stat-box">
+            <h3>Total Records</h3>
+            <p>{{ total_records }}</p>
+        </div>
+        <div class="stat-box">
+            <h3>Average Latrine Rate</h3>
+            <p>{{ avg_latrine_rate|floatformat:2 }}%</p>
+        </div>
+        <div class="stat-box">
+            <h3>Number of Regions</h3>
+            <p>{{ regions }}</p>
+        </div>
+        <div class="stat-box">
+            <h3>Highest Latrine Rate</h3>
+            <p>{{ highest_latrine_rate|floatformat:2 }}%</p>
+        </div>
+        <div class="stat-box">
+            <h3>Lowest Latrine Rate</h3>
+            <p>{{ lowest_latrine_rate|floatformat:2 }}%</p>
+        </div>
+        <div class="stat-box">
+            <h3>Median Latrine Rate</h3>
+            <p>{{ median_latrine_rate|floatformat:2 }}%</p>
+        </div>
+    </div>
+    
+    <h2>Top 5 Regions by Average Latrine Rate</h2>
+    <ul>
+    {% for region, rate in top_regions.items %}
+        <li>{{ region }}: {{ rate|floatformat:2 }}%</li>
+    {% endfor %}
+    </ul>
+    
+    <h2>Latrine Rate Distribution</h2>
+    <img src="data:image/png;base64,{{ histogram_plot }}" alt="Latrine Rate Distribution" class="plot">
+
+    <h2>Regional Comparison</h2>
+    <img src="data:image/png;base64,{{ bar_plot }}" alt="Regional Comparison of Latrine Rates" class="plot">
+
+    <div class="data-summary">
+        <h2>Data Summary</h2>
+        <p>{{ data_description|safe }}</p>
+    </div>
+
+    <h2>Sample Data (First 10 Records)</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Region</th>
+                <th>District</th>
+                <th>Commune</th>
+                <th>Fokontany</th>
+                <th>Localite</th>
+                <th>Latrine Rate</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for item in sample_data %}
+            <tr>
+                <td>{{ item.Region }}</td>
+                <td>{{ item.District }}</td>
+                <td>{{ item.Commune }}</td>
+                <td>{{ item.Fokontany }}</td>
+                <td>{{ item.Localite }}</td>
+                <td>{{ item.latrine_rate|floatformat:2 }}%</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

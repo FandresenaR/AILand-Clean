@@ -1,0 +1,5 @@
+runtime: python39  # or your Python version
+entrypoint: gunicorn -b :$PORT alcbackend.wsgi
+
+env_variables:
+  DJANGO_SETTINGS_MODULE: "alcbackend.settings"
