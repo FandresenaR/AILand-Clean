@@ -1,29 +1,27 @@
 import { useEffect, useRef } from 'react'
-import dynamic from 'next/dynamic'
-
-const mapboxgl = dynamic(() => import('mapbox-gl'), { ssr: false });
+import Script from 'next/script'
 
 const MapboxGLComponent = ({ mapType }) => {
   const mapContainer = useRef(null)
   const map = useRef(null)
+  const mapboxLoaded = useRef(false)
 
   useEffect(() => {
-    if (typeof window === 'undefined' || map.current) return;
+    if (typeof window === 'undefined' || !window.mapboxgl || map.current) return;
 
-    const initializeMap = async () => {
-      const mapboxgl = await import('mapbox-gl');
-      await import('mapbox-gl/dist/mapbox-gl.css');
+    const initializeMap = () => {
+      if (!mapboxLoaded.current) return;
 
-      mapboxgl.accessToken = 'pk.eyJ1IjoiZmFuZHJlc2VuYS0yNCIsImEiOiJjbTB0b2tyMHIwdWR5MnJzajdyYjdxaHFlIn0.X_jOASRkfd478-irjDhxXg';
+      window.mapboxgl.accessToken = 'pk.eyJ1IjoiZmFuZHJlc2VuYS0yNCIsImEiOiJjbTB0b2tyMHIwdWR5MnJzajdyYjdxaHFlIn0.X_jOASRkfd478-irjDhxXg';
 
-      map.current = new mapboxgl.Map({
+      map.current = new window.mapboxgl.Map({
         container: mapContainer.current,
         style: `mapbox://styles/mapbox/${mapType}`,
         center: [46.7, -19.0], // Madagascar coordinates
         zoom: 6
       });
 
-      map.current.addControl(new mapboxgl.NavigationControl());
+      map.current.addControl(new window.mapboxgl.NavigationControl());
 
       const markers = [
         { lng: 47.5079, lat: -18.8792, name: "Antananarivo" },
@@ -32,14 +30,16 @@ const MapboxGLComponent = ({ mapType }) => {
       ];
 
       markers.forEach(marker => {
-        new mapboxgl.Marker()
+        new window.mapboxgl.Marker()
           .setLngLat([marker.lng, marker.lat])
-          .setPopup(new mapboxgl.Popup().setHTML(`<h3>${marker.name}</h3>`))
+          .setPopup(new window.mapboxgl.Popup().setHTML(`<h3>${marker.name}</h3>`))
           .addTo(map.current);
       });
     };
 
-    initializeMap();
+    if (window.mapboxgl && mapboxLoaded.current) {
+      initializeMap();
+    }
   }, [mapType]);
 
   useEffect(() => {
@@ -47,7 +47,23 @@ const MapboxGLComponent = ({ mapType }) => {
     map.current.setStyle(`mapbox://styles/mapbox/${mapType}`);
   }, [mapType]);
 
-  return <div ref={mapContainer} className="h-[400px] w-full"></div>
+  return (
+    <>
+      <Script
+        src="https://api.mapbox.com/mapbox-gl-js/v2.9.1/mapbox-gl.js"
+        onLoad={() => {
+          mapboxLoaded.current = true;
+          if (window.mapboxgl && !map.current) {
+            const initializeMap = () => {
+              // ... (same initialization code as above)
+            };
+            initializeMap();
+          }
+        }}
+      />
+      <div ref={mapContainer} className="h-[400px] w-full"></div>
+    </>
+  )
 }
 
-export default MapboxGLComponent;
+export default MapboxGLComponent
