@@ -2,13 +2,15 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { MoonIcon, SunIcon } from '@heroicons/react/24/solid'
-import mapboxgl from 'mapbox-gl'
-import 'mapbox-gl/dist/mapbox-gl.css'
+import dynamic from 'next/dynamic'
 import { PieChart, Pie, Cell, Legend, Tooltip } from 'recharts'
 
-// Mapbox configuration
-const mapboxAccessToken = 'pk.eyJ1IjoiZmFuZHJlc2VuYS0yNCIsImEiOiJjbTB0b2tyMHIwdWR5MnJzajdyYjdxaHFlIn0.X_jOASRkfd478-irjDhxXg';
-mapboxgl.accessToken = mapboxAccessToken;
+const MapboxGLComponent = dynamic(() => import('../components/MapboxGLComponent'), {
+  ssr: false,
+  loading: () => <p>Loading Map...</p>
+})
+
+// Remove the mapboxgl import and configuration from here
 
 export default function Home() {
   // State management
@@ -145,7 +147,7 @@ export default function Home() {
         <div className="container mx-auto p-4">
           {/* Map container */}
           <div className="bg-white rounded-lg shadow-lg overflow-hidden mb-8">
-            <div ref={mapContainer} className="h-[400px] w-full"></div>
+            <MapboxGLComponent mapType={mapType} />
           </div>
           {/* Latrine distribution section */}
           <div className={`rounded-lg shadow-lg p-6 ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
