@@ -3,6 +3,10 @@ const nextConfig = {
   experimental: {
     serverComponentsExternalPackages: ['axios'],
   },
+  webpack: (config) => {
+    config.resolve.fallback = { fs: false, path: false };
+    return config;
+  },
   async rewrites() {
     return [
       {

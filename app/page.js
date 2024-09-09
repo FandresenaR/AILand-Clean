@@ -98,7 +98,7 @@ export default function Home() {
     <div className={`min-h-screen ${darkMode ? 'bg-gray-900 text-white' : 'bg-gray-100 text-black'}`}>
       <main className="p-4">
         {/* Header section */}
-        <header className={`p-4 rounded-full flex justify-between items-center max-w-6xl mx-auto mb-4 ${
+        <header className={`p-4 rounded-full flex justify-between items-center max-w-6xl mx-auto mb-4 shadow-md ${
           darkMode 
             ? 'bg-gradient-to-r from-gray-800 to-gray-900 text-white' 
             : 'bg-gradient-to-r from-white to-gray-100 text-gray-900'
