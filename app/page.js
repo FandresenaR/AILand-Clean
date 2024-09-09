@@ -14,6 +14,7 @@ const MapboxGLComponent = dynamic(() => import('@/components/MapboxGLComponent')
 
 const montserratAlternates = Montserrat_Alternates({
   subsets: ['latin'],
+  weight: ['300', '400', '600', '700'],
   variable: '--font-montserrat-alternates',
 })
 
@@ -68,7 +69,7 @@ export default function Home() {
   const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8']
 
   return (
-    <div className={`min-h-screen ${darkMode ? 'bg-gray-900 text-white' : 'bg-gray-100 text-black'} ${montserratAlternates.variable}`}>
+    <div className={`min-h-screen ${darkMode ? 'bg-gray-900 text-white' : 'bg-gray-100 text-black'} ${montserratAlternates.variable} font-sans`}>
       <main className="p-4 font-sans">
         {/* Header section */}
         <header className={`p-4 rounded-full flex justify-between items-center max-w-6xl mx-auto mb-4 shadow-md ${
