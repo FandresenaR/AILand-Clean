@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { MoonIcon, SunIcon } from '@heroicons/react/24/solid'
 import dynamic from 'next/dynamic'
 import { PieChart, Pie, Cell, Legend, Tooltip } from 'recharts'
+import Image from 'next/image'
 
 const MapboxGLComponent = dynamic(() => import('@/components/MapboxGLComponent'), {
   ssr: false,
@@ -71,7 +72,13 @@ export default function Home() {
         }`}>
           {/* Logo and title */}
           <div className="flex items-center">
-            <img src="/logo.png" alt="AiLandClean Logo" className="h-10 mr-4" />
+            <Image
+              src="/logo.png"
+              alt="AiLandClean Logo"
+              width={40}
+              height={40}
+              className="mr-4"
+            />
             <h1 className="text-2xl font-light font-montserrat-alternates">AiLandClean</h1>
           </div>
           {/* Controls: Map type toggle and dark mode toggle */}
@@ -140,7 +147,7 @@ export default function Home() {
                       ))}
                     </Pie>
                     <Tooltip contentStyle={{ backgroundColor: darkMode ? '#374151' : 'white', color: darkMode ? 'white' : 'black' }} />
-                    <Legend verticalAlign="bottom" height={36} />  // Adjusted legend position
+                    <Legend verticalAlign="bottom" height={36} />
                   </PieChart>
                 </div>
                 {/* Key insights */}
@@ -149,7 +156,7 @@ export default function Home() {
                   <ul className="list-disc pl-5 mb-4">
                     <li>{latrineData[0]?.name} has the highest number of latrines ({latrineData[0]?.value})</li>
                     <li>{latrineData[2]?.name} has the lowest number of latrines ({latrineData[2]?.value})</li>
-                    <li>There's a significant disparity between regions</li>
+                    <li>There&apos;s a significant disparity between regions</li>
                   </ul>
                   <p>
                     This data can help prioritize regions for latrine construction and 
