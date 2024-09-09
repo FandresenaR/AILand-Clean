@@ -5,10 +5,16 @@ import { MoonIcon, SunIcon } from '@heroicons/react/24/solid'
 import dynamic from 'next/dynamic'
 import { PieChart, Pie, Cell, Legend, Tooltip } from 'recharts'
 import Image from 'next/image'
+import { Montserrat_Alternates } from 'next/font/google'
 
 const MapboxGLComponent = dynamic(() => import('@/components/MapboxGLComponent'), {
   ssr: false,
   loading: () => <p>Loading Map...</p>
+})
+
+const montserratAlternates = Montserrat_Alternates({
+  subsets: ['latin'],
+  variable: '--font-montserrat-alternates',
 })
 
 export default function Home() {
@@ -62,8 +68,8 @@ export default function Home() {
   const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884D8']
 
   return (
-    <div className={`min-h-screen ${darkMode ? 'bg-gray-900 text-white' : 'bg-gray-100 text-black'}`}>
-      <main className="p-4">
+    <div className={`min-h-screen ${darkMode ? 'bg-gray-900 text-white' : 'bg-gray-100 text-black'} ${montserratAlternates.variable}`}>
+      <main className="p-4 font-sans">
         {/* Header section */}
         <header className={`p-4 rounded-full flex justify-between items-center max-w-6xl mx-auto mb-4 shadow-md ${
           darkMode 

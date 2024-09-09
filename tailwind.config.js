@@ -15,7 +15,8 @@ module.exports = {
         },
       },
       fontFamily: {
-        'montserrat-alternates': ['var(--font-montserrat-alternates)'],
+        sans: ['var(--font-montserrat-alternates)', 'sans-serif'],
+        'montserrat-alternates': ['var(--font-montserrat-alternates)', 'sans-serif'],
       },
     },
   },
