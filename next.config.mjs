@@ -15,7 +15,6 @@ const nextConfig = {
       },
     ];
   },
-  transpilePackages: ['mapbox-gl'],
 };
 
 export default nextConfig;
