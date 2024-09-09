@@ -5,7 +5,7 @@ import { MoonIcon, SunIcon } from '@heroicons/react/24/solid'
 import dynamic from 'next/dynamic'
 import { PieChart, Pie, Cell, Legend, Tooltip } from 'recharts'
 
-const MapboxGLComponent = dynamic(() => import('../components/MapboxGLComponent'), {
+const MapboxGLComponent = dynamic(() => import('@/components/MapboxGLComponent'), {
   ssr: false,
   loading: () => <p>Loading Map...</p>
 })
