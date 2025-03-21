@@ -7,9 +7,25 @@ import { PieChart, Pie, Cell, Legend, Tooltip } from 'recharts'
 import Image from 'next/image'
 import { Montserrat_Alternates } from 'next/font/google'
 
+// Chargement dynamique des composants d'analyse
 const MapboxGLComponent = dynamic(() => import('@/components/MapboxGLComponent'), {
   ssr: false,
   loading: () => <p>Loading Map...</p>
+})
+
+const EnvironmentAnalysis = dynamic(() => import('@/components/EnvironmentAnalysis'), {
+  ssr: false,
+  loading: () => (
+    <div className="animate-pulse p-8 mb-8 bg-gray-100 rounded-lg">
+      <div className="h-8 bg-gray-200 rounded w-1/3 mb-4"></div>
+      <div className="h-64 bg-gray-200 rounded mb-4"></div>
+    </div>
+  )
+})
+
+const DetailedAnalysisSection = dynamic(() => import('@/components/DetailedAnalysisSection'), {
+  ssr: false,
+  loading: () => <div className="animate-pulse h-80 bg-gray-200 rounded"></div>
 })
 
 const montserratAlternates = Montserrat_Alternates({
@@ -22,10 +38,9 @@ export default function Home() {
   // State management
   const [darkMode, setDarkMode] = useState(true)
   const [mapType, setMapType] = useState(darkMode ? 'dark-v10' : 'light-v10')
-  const mapContainer = useRef(null)
-  const map = useRef(null)
   const [latrineData, setLatrineData] = useState([])
   const [isLoading, setIsLoading] = useState(true)
+  const [showAnalysis, setShowAnalysis] = useState(false)
 
   // Fetch latrine data (simulated with setTimeout)
   useEffect(() => {
@@ -101,6 +116,19 @@ export default function Home() {
             >
               {mapType === 'satellite-v9' ? 'Switch to Streets' : 'Switch to Satellite'}
             </button>
+            
+            {/* Toggle pour afficher/masquer l'analyse */}
+            <button
+              className={`px-4 py-2 rounded-full transition-colors text-sm ${
+                darkMode
+                  ? 'bg-purple-600 hover:bg-purple-700 text-white'
+                  : 'bg-purple-500 hover:bg-purple-600 text-white'
+              }`}
+              onClick={() => setShowAnalysis(!showAnalysis)}
+            >
+              {showAnalysis ? 'Masquer analyses' : 'Voir analyses'}
+            </button>
+            
             {/* Dark mode toggle switch */}
             <div className="relative w-14 h-7 rounded-full bg-gray-200 dark:bg-gray-700 transition-colors duration-300 ease-in-out">
               <button
@@ -122,13 +150,15 @@ export default function Home() {
             </div>
           </div>
         </header>
+        
         <div className="container mx-auto p-4">
           {/* Map container */}
           <div className="bg-white rounded-lg shadow-lg overflow-hidden mb-8">
             <MapboxGLComponent mapType={mapType} />
           </div>
+          
           {/* Latrine distribution section */}
-          <div className={`rounded-lg shadow-lg p-6 ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
+          <div className={`rounded-lg shadow-lg p-6 mb-8 ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
             <h2 className="text-2xl font-bold font-montserrat-alternates mb-4">Latrine Distribution by Region</h2>
             {isLoading ? (
               <div className="flex justify-center items-center h-[400px]">
@@ -173,6 +203,61 @@ export default function Home() {
               </div>
             )}
           </div>
+          
+          {/* Section d'analyse environnementale (conditionnelle) */}
+          {showAnalysis && (
+            <div className={`rounded-lg shadow-lg overflow-hidden mb-8 ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
+              <div className="p-6">
+                <h2 className="text-2xl font-bold font-montserrat-alternates mb-4">Analyse Environnementale</h2>
+                <p className="mb-4">
+                  Visualisation complète des données environnementales pour Madagascar, mettant en évidence les zones à risque et les tendances de pollution.
+                </p>
+              </div>
+              
+              {/* Intégration du composant d'analyse environnementale */}
+              <EnvironmentAnalysis darkMode={darkMode} />
+              
+              {/* Intégration du composant d'analyse détaillée */}
+              <DetailedAnalysisSection darkMode={darkMode} />
+              
+              {/* Section d'insights additionnels */}
+              <div className="p-6 border-t border-gray-200 dark:border-gray-700">
+                <h3 className="text-xl font-bold font-montserrat-alternates mb-3">Perspectives et Recommandations</h3>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className={`p-4 rounded-lg ${darkMode ? 'bg-blue-900' : 'bg-blue-50'}`}>
+                    <h4 className="font-bold mb-2">Facteurs de risque environnementaux</h4>
+                    <ul className="list-disc pl-5 space-y-1">
+                      <li>Manque d&apos;infrastructures sanitaires dans les zones urbaines à forte densité</li>
+                      <li>Pollution des eaux de surface dans les régions côtières</li>
+                      <li>Déforestation et érosion des sols dans les zones forestières</li>
+                      <li>Vulnérabilité accrue aux événements climatiques extrêmes</li>
+                    </ul>
+                  </div>
+                  
+                  <div className={`p-4 rounded-lg ${darkMode ? 'bg-green-900' : 'bg-green-50'}`}>
+                    <h4 className="font-bold mb-2">Actions prioritaires</h4>
+                    <ul className="list-disc pl-5 space-y-1">
+                      <li>Installation de 500 nouvelles latrines dans les zones rurales critiques</li>
+                      <li>Développement de systèmes de traitement des eaux usées dans les villes côtières</li>
+                      <li>Campagnes de sensibilisation sur les pratiques d&apos;hygiène</li>
+                      <li>Reboisement dans les zones à forte érosion</li>
+                    </ul>
+                  </div>
+                </div>
+                
+                <div className={`mt-6 p-4 rounded-lg ${darkMode ? 'bg-purple-900' : 'bg-purple-50'}`}>
+                  <h4 className="font-bold mb-2">Impact social et économique</h4>
+                  <p>
+                    L&apos;amélioration des conditions sanitaires pourrait réduire les maladies d&apos;origine hydrique de 35% 
+                    et augmenter la productivité économique de 12% dans les régions ciblées. Chaque dollar investi 
+                    dans l&apos;assainissement génère un retour de 5,5 dollars en termes de réduction des coûts de santé 
+                    et d&apos;augmentation de la productivité.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </main>
     </div>
