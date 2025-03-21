@@ -5,6 +5,7 @@ import { MoonIcon, SunIcon } from '@heroicons/react/24/solid'
 import dynamic from 'next/dynamic'
 import { PieChart, Pie, Cell, Legend, Tooltip } from 'recharts'
 import Image from 'next/image'
+import Link from 'next/link'
 import { Montserrat_Alternates } from 'next/font/google'
 
 // Chargement dynamique des composants d'analyse
@@ -116,6 +117,18 @@ export default function Home() {
             >
               {mapType === 'satellite-v9' ? 'Switch to Streets' : 'Switch to Satellite'}
             </button>
+            
+            {/* Bouton d'importation de données - NOUVEAU */}
+            <Link
+              href="/debug/import-data"
+              className={`px-4 py-2 rounded-full transition-colors text-sm ${
+                darkMode
+                  ? 'bg-green-600 hover:bg-green-700 text-white'
+                  : 'bg-green-500 hover:bg-green-600 text-white'
+              }`}
+            >
+              Importer des données
+            </Link>
             
             {/* Toggle pour afficher/masquer l'analyse */}
             <button

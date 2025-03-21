@@ -148,7 +148,7 @@ export default function ImportDataPage() {
       
       <div className="mb-6">
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
+          <label className="block text-gray-700 text-sm font-bold mb-2 text-white">
             Charger un fichier JSON:
           </label>
           <div className="flex items-center">
@@ -157,7 +157,7 @@ export default function ImportDataPage() {
               type="file" 
               accept=".json"
               onChange={handleFileChange}
-              className="shadow border rounded py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline"
+              className="shadow border rounded py-2 px-3 text-white bg-gray-700 focus:outline-none focus:shadow-outline"
             />
             {jsonFile && (
               <button 
@@ -185,14 +185,14 @@ export default function ImportDataPage() {
         </div>
         
         <div className="mb-4">
-          <label className="block text-gray-700 text-sm font-bold mb-2">
+          <label className="block text-gray-700 text-sm font-bold mb-2 text-white">
             Ou collez votre JSON ici:
           </label>
           <textarea 
             value={jsonData}
             onChange={(e) => setJsonData(e.target.value)}
             rows={10}
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            className="shadow appearance-none border rounded w-full py-2 px-3 bg-gray-700 text-white leading-tight focus:outline-none focus:shadow-outline"
             placeholder="Collez vos données JSON ici..."
           />
         </div>
@@ -244,10 +244,10 @@ export default function ImportDataPage() {
       )}
       
       <div className="mt-6 flex space-x-4">
-        <Link href="/debug/firebase" className="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded">
+        <Link href="/debug/firebase" className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded shadow transition-colors">
           Retour au débogueur
         </Link>
-        <Link href="/" className="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded">
+        <Link href="/" className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded shadow transition-colors">
           Retour à l&apos;accueil
         </Link>
       </div>

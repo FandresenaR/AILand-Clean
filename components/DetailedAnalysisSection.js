@@ -14,9 +14,9 @@ const DetailedAnalysisSection = ({ darkMode = false }) => {
       const years = ['2018', '2019', '2020', '2021', '2022', '2023'];
       return years.map(year => ({
         year,
-        'Accès aux latrines': 40 + Math.floor(Math.random() * 5) + (years.indexOf(year) * 5),
-        'Qualité de l&apos;eau': 35 + Math.floor(Math.random() * 8) + (years.indexOf(year) * 6),
-        'Épidémies': 30 - Math.floor(Math.random() * 3) - (years.indexOf(year) * 2),
+        'AccesLatrines': 40 + Math.floor(Math.random() * 5) + (years.indexOf(year) * 5),
+        'QualiteEau': 35 + Math.floor(Math.random() * 8) + (years.indexOf(year) * 6),
+        'Epidemies': 30 - Math.floor(Math.random() * 3) - (years.indexOf(year) * 2),
       }));
     };
 
@@ -25,9 +25,9 @@ const DetailedAnalysisSection = ({ darkMode = false }) => {
       const regions = ['Antananarivo', 'Toamasina', 'Mahajanga', 'Toliara', 'Fianarantsoa'];
       return regions.map(region => ({
         region,
-        'Taux d&apos;accès': 20 + Math.floor(Math.random() * 60),
-        'Indice de propreté': 15 + Math.floor(Math.random() * 70),
-        'Risque sanitaire': 10 + Math.floor(Math.random() * 80),
+        'TauxAcces': 20 + Math.floor(Math.random() * 60),
+        'IndicePropreté': 15 + Math.floor(Math.random() * 70),
+        'RisqueSanitaire': 10 + Math.floor(Math.random() * 80),
       }));
     };
 
@@ -70,9 +70,9 @@ const DetailedAnalysisSection = ({ darkMode = false }) => {
                 }} 
               />
               <Legend wrapperStyle={{ color: darkMode ? "#eee" : "#333" }} />
-              <Line type="monotone" dataKey="Accès aux latrines" stroke="#8884d8" activeDot={{ r: 8 }} />
-              <Line type="monotone" dataKey="Qualité de l'eau" stroke="#82ca9d" />
-              <Line type="monotone" dataKey="Épidémies" stroke="#ff7300" />
+              <Line type="monotone" dataKey="AccesLatrines" name="Accès aux latrines" stroke="#8884d8" activeDot={{ r: 8 }} />
+              <Line type="monotone" dataKey="QualiteEau" name="Qualité de l'eau" stroke="#82ca9d" />
+              <Line type="monotone" dataKey="Epidemies" name="Épidémies" stroke="#ff7300" />
             </LineChart>
           </ResponsiveContainer>
         </div>
@@ -104,9 +104,9 @@ const DetailedAnalysisSection = ({ darkMode = false }) => {
                 }} 
               />
               <Legend wrapperStyle={{ color: darkMode ? "#eee" : "#333" }} />
-              <Bar dataKey="Taux d'accès" fill={darkMode ? "#9c88e0" : "#8884d8"} />
-              <Bar dataKey="Indice de propreté" fill={darkMode ? "#82daad" : "#82ca9d"} />
-              <Bar dataKey="Risque sanitaire" fill={darkMode ? "#ff9c40" : "#ff7300"} />
+              <Bar dataKey="TauxAcces" name="Taux d'accès" fill={darkMode ? "#9c88e0" : "#8884d8"} />
+              <Bar dataKey="IndicePropreté" name="Indice de propreté" fill={darkMode ? "#82daad" : "#82ca9d"} />
+              <Bar dataKey="RisqueSanitaire" name="Risque sanitaire" fill={darkMode ? "#ff9c40" : "#ff7300"} />
             </BarChart>
           </ResponsiveContainer>
         </div>
