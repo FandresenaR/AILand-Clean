@@ -15,7 +15,7 @@ const DetailedAnalysisSection = ({ darkMode = false }) => {
       return years.map(year => ({
         year,
         'Accès aux latrines': 40 + Math.floor(Math.random() * 5) + (years.indexOf(year) * 5),
-        'Qualité de l\'eau': 35 + Math.floor(Math.random() * 8) + (years.indexOf(year) * 6),
+        'Qualité de l&apos;eau': 35 + Math.floor(Math.random() * 8) + (years.indexOf(year) * 6),
         'Épidémies': 30 - Math.floor(Math.random() * 3) - (years.indexOf(year) * 2),
       }));
     };
@@ -25,7 +25,7 @@ const DetailedAnalysisSection = ({ darkMode = false }) => {
       const regions = ['Antananarivo', 'Toamasina', 'Mahajanga', 'Toliara', 'Fianarantsoa'];
       return regions.map(region => ({
         region,
-        'Taux d\'accès': 20 + Math.floor(Math.random() * 60),
+        'Taux d&apos;accès': 20 + Math.floor(Math.random() * 60),
         'Indice de propreté': 15 + Math.floor(Math.random() * 70),
         'Risque sanitaire': 10 + Math.floor(Math.random() * 80),
       }));

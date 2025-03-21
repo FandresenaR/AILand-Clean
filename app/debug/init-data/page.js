@@ -78,7 +78,7 @@ export default function InitDataPage() {
         <div className="mb-4">
           <h2 className="text-lg font-semibold">Données de localisation:</h2>
           <div className={`mt-2 p-2 rounded ${results.locations ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'}`}>
-            {results.locations ? 'Initialisées avec succès' : 'Échec de l\'initialisation'}
+            {results.locations ? 'Initialisées avec succès' : 'Échec de l&apos;initialisation'}
           </div>
         </div>
       )}
@@ -87,7 +87,7 @@ export default function InitDataPage() {
         <div className="mb-4">
           <h2 className="text-lg font-semibold">Données d&apos;analyse:</h2>
           <div className={`mt-2 p-2 rounded ${results.analysis ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'}`}>
-            {results.analysis ? 'Initialisées avec succès' : 'Échec de l\'initialisation'}
+            {results.analysis ? 'Initialisées avec succès' : 'Échec de l&apos;initialisation'}
           </div>
         </div>
       )}

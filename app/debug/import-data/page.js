@@ -47,7 +47,7 @@ export default function ImportDataPage() {
           setFileLoading(false);
           setStatus(prev => ({ 
             ...prev, 
-            error: isValidFormat ? null : "Le fichier n'est pas du JSON standard, mais nous allons tenter de l'analyser."
+            error: isValidFormat ? null : "Le fichier n&apos;est pas du JSON standard, mais nous allons tenter de l&apos;analyser."
           }));
         } catch (error) {
           console.error("Erreur lors de la lecture du fichier:", error);

@@ -54,7 +54,7 @@ const MapboxGLComponent = ({ mapType = 'streets-v11' }) => {
         return () => unsubscribe();
       } catch (authError) {
         console.error("Erreur d'authentification:", authError);
-        setError("Erreur d'authentification: ${authError.message}");
+        setError(`Erreur d&apos;authentification: ${authError.message}`);
         setAuthStatus("échec");
         setLoading(false);
         return () => {};
@@ -283,7 +283,7 @@ const MapboxGLComponent = ({ mapType = 'streets-v11' }) => {
       } catch (error) {
         console.error("Erreur lors de l'initialisation de la carte:", error);
         setMapStatus("erreur");
-        setError("Erreur d'initialisation: ${error.message}");
+        setError(`Erreur d&apos;initialisation: ${error.message}`);
       }
     };
 
