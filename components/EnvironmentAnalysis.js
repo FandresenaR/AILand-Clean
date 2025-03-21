@@ -141,8 +141,8 @@ const EnvironmentAnalysis = ({ darkMode = false }) => {
   if (!analysisData || !locationData) {
     return (
       <div className={`${darkMode ? 'bg-yellow-900' : 'bg-yellow-50'} border-l-4 border-yellow-500 ${darkMode ? 'text-yellow-200' : 'text-yellow-700'} p-4 my-4`}>
-        <p className="font-bold">Données d'analyse non disponibles</p>
-        <p>Veuillez initialiser les données d'analyse pour voir ce tableau de bord.</p>
+        <p className="font-bold">Données d&apos;analyse non disponibles</p>
+        <p>Veuillez initialiser les données d&apos;analyse pour voir ce tableau de bord.</p>
       </div>
     );
   }
@@ -326,11 +326,11 @@ const EnvironmentAnalysis = ({ darkMode = false }) => {
             </li>
             <li>
               Les zones de type <strong>{Object.entries(additionalStats.typeDistribution).sort((a, b) => b[1] - a[1])[0][0]}</strong> sont les 
-              plus nombreuses dans l'échantillon ({Object.entries(additionalStats.typeDistribution).sort((a, b) => b[1] - a[1])[0][1]} sites).
+              plus nombreuses dans l&apos;échantillon ({Object.entries(additionalStats.typeDistribution).sort((a, b) => b[1] - a[1])[0][1]} sites).
             </li>
             <li>
               <strong>{((additionalStats.regionStats.improving / additionalStats.regionStats.total) * 100).toFixed(0)}%</strong> des régions 
-              montrent une tendance à l'amélioration, suggérant que les initiatives environnementales pourraient être efficaces dans ces zones.
+              montrent une tendance à l&apos;amélioration, suggérant que les initiatives environnementales pourraient être efficaces dans ces zones.
             </li>
           </ul>
         </div>

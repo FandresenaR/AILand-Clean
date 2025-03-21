@@ -142,8 +142,8 @@ export default function ImportDataPage() {
       
       <div className="bg-blue-50 border-l-4 border-blue-500 text-blue-700 p-4 mb-6">
         <p className="font-bold">Information</p>
-        <p>Cette page vous permet d'importer vos propres données JSON dans Firebase.</p>
-        <p>Les données seront converties au format attendu par l'application.</p>
+        <p>Cette page vous permet d&apos;importer vos propres données JSON dans Firebase.</p>
+        <p>Les données seront converties au format attendu par l&apos;application.</p>
       </div>
       
       <div className="mb-6">
@@ -211,7 +211,7 @@ export default function ImportDataPage() {
         
         {isImportButtonDisabled && !status.loading && !fileLoading && (
           <p className="text-red-500 text-sm mt-2">
-            Veuillez d'abord charger un fichier JSON valide ou coller du JSON valide
+            Veuillez d&apos;abord charger un fichier JSON valide ou coller du JSON valide
           </p>
         )}
       </div>
@@ -248,7 +248,7 @@ export default function ImportDataPage() {
           Retour au débogueur
         </Link>
         <Link href="/" className="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded">
-          Retour à l'accueil
+          Retour à l&apos;accueil
         </Link>
       </div>
     </div>

@@ -77,8 +77,8 @@ const DetailedAnalysisSection = ({ darkMode = false }) => {
           </ResponsiveContainer>
         </div>
         <p className={`text-sm mt-2 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-          Les données montrent une corrélation claire entre l'augmentation de l'accès aux latrines, 
-          l'amélioration de la qualité de l'eau et la diminution des épidémies.
+          Les données montrent une corrélation claire entre l&apos;augmentation de l&apos;accès aux latrines, 
+          l&apos;amélioration de la qualité de l&apos;eau et la diminution des épidémies.
         </p>
       </div>
       
@@ -111,7 +111,7 @@ const DetailedAnalysisSection = ({ darkMode = false }) => {
           </ResponsiveContainer>
         </div>
         <p className={`text-sm mt-2 ${darkMode ? 'text-gray-300' : 'text-gray-600'}`}>
-          Les disparités régionales sont significatives. Les zones avec un faible taux d'accès 
+          Les disparités régionales sont significatives. Les zones avec un faible taux d&apos;accès 
           aux installations sanitaires présentent généralement un indice de propreté inférieur 
           et un risque sanitaire plus élevé.
         </p>

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import Script from 'next/script'
 // Import toutes les fonctions depuis votre fichier firebase.js
 import { database, ref, onValue, signInAnonymous } from '../firebase'
@@ -54,7 +54,7 @@ const MapboxGLComponent = ({ mapType = 'streets-v11' }) => {
         return () => unsubscribe();
       } catch (authError) {
         console.error("Erreur d'authentification:", authError);
-        setError(`Erreur d'authentification: ${authError.message}`);
+        setError("Erreur d'authentification: ${authError.message}");
         setAuthStatus("échec");
         setLoading(false);
         return () => {};
@@ -64,120 +64,8 @@ const MapboxGLComponent = ({ mapType = 'streets-v11' }) => {
     initializeAuth();
   }, []);
 
-  // Configuration et initialisation de la carte
-  useEffect(() => {
-    if (typeof window === 'undefined') {
-      console.warn("Environnement côté serveur détecté, la carte ne sera pas rendue");
-      return;
-    }
-    
-    if (!window.mapboxgl) {
-      console.warn("Mapbox GL n'est pas chargé, en attente...");
-      return;
-    }
-    
-    // Ne pas réinitialiser si la carte existe déjà
-    if (map.current) {
-      // Mettre à jour seulement le style de la carte existante
-      try {
-        if (mapType && map.current) {
-          map.current.setStyle(`mapbox://styles/mapbox/${mapType}`);
-          console.log("Style de carte mis à jour:", mapType);
-        }
-      } catch (err) {
-        console.error("Erreur lors de la mise à jour du style:", err);
-      }
-      return;
-    }
-
-    // Fonction modifiée pour initialiser la carte avec plus de contrôles d'erreur
-    const initializeMap = () => {
-      if (!mapboxLoaded.current) {
-        console.log("Mapbox n'est pas encore chargé");
-        return;
-      }
-
-      try {
-        console.log("Initialisation de la carte avec le style:", mapType);
-        window.mapboxgl.accessToken = 'pk.eyJ1IjoiZmFuZHJlc2VuYS0yNCIsImEiOiJjbTB0b2tyMHIwdWR5MnJzajdyYjdxaHFlIn0.X_jOASRkfd478-irjDhxXg';
-
-        // Sauvegarder la référence actuelle du conteneur
-        const container = mapContainer.current;
-        if (!container) {
-          console.error("Le conteneur de carte est null");
-          setError("Erreur: Le conteneur de carte est introuvable");
-          return;
-        }
-
-        // Forcer un style par défaut connu pour fonctionner
-        const mapStyle = mapType || 'streets-v11'; // Assurer un style par défaut
-        console.log("Style de carte utilisé:", mapStyle);
-
-        // Création de la carte
-        map.current = new window.mapboxgl.Map({
-          container: container,
-          style: `mapbox://styles/mapbox/${mapStyle}`,
-          center: [46.7, -19.0], // Madagascar
-          zoom: 5.5,
-          failIfMajorPerformanceCaveat: false, // Essayer de charger même avec des performances limitées
-          preserveDrawingBuffer: true
-        });
-
-        // Ajouter des contrôles
-        map.current.addControl(new window.mapboxgl.NavigationControl());
-        
-        // Événements de carte pour le débogage
-        map.current.on('load', () => {
-          console.log("Carte chargée avec succès");
-          setMapStatus("chargée");
-
-          // Vérifier les couches chargées
-          const layers = map.current.getStyle().layers;
-          console.log("Couches de carte chargées:", layers ? layers.length : 0);
-
-          // Afficher les marqueurs après le chargement de la carte
-          displayMarkers();
-        });
-        
-        map.current.on('error', (e) => {
-          console.error("Erreur Mapbox:", e);
-          setMapStatus("erreur");
-          setError(`Erreur de carte: ${e.error?.message || 'Erreur inconnue'}`);
-        });
-        
-        // Test de visibilité de la carte
-        setTimeout(() => {
-          if (map.current) {
-            const canvas = map.current.getCanvas();
-            console.log("Canvas de carte trouvé:", !!canvas);
-            if (canvas) {
-              console.log("Dimensions du canvas:", canvas.width, "x", canvas.height);
-              // Vérifier si la carte a une taille non nulle
-              if (canvas.width === 0 || canvas.height === 0) {
-                console.error("La carte a une taille nulle");
-                setError("La carte a une taille nulle. Vérifiez le CSS.");
-              }
-            }
-          }
-        }, 1000);
-      } catch (error) {
-        console.error("Erreur lors de l'initialisation de la carte:", error);
-        setMapStatus("erreur");
-        setError(`Erreur d'initialisation: ${error.message}`);
-      }
-    };
-
-    // Initialiser immédiatement si Mapbox est chargé
-    if (window.mapboxgl && mapboxLoaded.current) {
-      console.log("Mapbox GL est chargé, initialisation de la carte");
-      initializeMap();
-    } else {
-      console.log("En attente du chargement de Mapbox GL...");
-    }
-  }, [mapType]);
-
-  // Fonction pour afficher les marqueurs
-  const displayMarkers = () => {
+  // Fonction pour afficher les marqueurs avec useCallback
+  const displayMarkers = useCallback(() => {
     if (!map.current) {
       console.error("Impossible d'afficher les marqueurs: la carte n'est pas initialisée");
       return;
@@ -286,7 +174,7 @@ const MapboxGLComponent = ({ mapType = 'streets-v11' }) => {
     } else if (visibleMarkers > 0) {
       // Ajuster la vue pour voir tous les marqueurs
       try {
-        map.current.fitBounds(bounds, { 
+        map.current.fitBounds(bounds, {
           padding: 50,
           maxZoom: 12
         });
@@ -294,7 +182,119 @@ const MapboxGLComponent = ({ mapType = 'streets-v11' }) => {
         console.error("Erreur lors de l'ajustement des limites de la carte:", error);
       }
     }
-  };
+  }, [locations]); // Supprimer map.current des dépendances car c'est une ref
+
+  // Configuration et initialisation de la carte
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      console.warn("Environnement côté serveur détecté, la carte ne sera pas rendue");
+      return;
+    }
+    
+    if (!window.mapboxgl) {
+      console.warn("Mapbox GL n'est pas chargé, en attente...");
+      return;
+    }
+    
+    // Ne pas réinitialiser si la carte existe déjà
+    if (map.current) {
+      // Mettre à jour seulement le style de la carte existante
+      try {
+        if (mapType && map.current) {
+          map.current.setStyle(`mapbox://styles/mapbox/${mapType}`);
+          console.log("Style de carte mis à jour:", mapType);
+        }
+      } catch (err) {
+        console.error("Erreur lors de la mise à jour du style:", err);
+      }
+      return;
+    }
+
+    // Fonction modifiée pour initialiser la carte avec plus de contrôles d'erreur
+    const initializeMap = () => {
+      if (!mapboxLoaded.current) {
+        console.log("Mapbox n'est pas encore chargé");
+        return;
+      }
+
+      try {
+        console.log("Initialisation de la carte avec le style:", mapType);
+        window.mapboxgl.accessToken = 'pk.eyJ1IjoiZmFuZHJlc2VuYS0yNCIsImEiOiJjbTB0b2tyMHIwdWR5MnJzajdyYjdxaHFlIn0.X_jOASRkfd478-irjDhxXg';
+
+        // Sauvegarder la référence actuelle du conteneur
+        const container = mapContainer.current;
+        if (!container) {
+          console.error("Le conteneur de carte est null");
+          setError("Erreur: Le conteneur de carte est introuvable");
+          return;
+        }
+
+        // Forcer un style par défaut connu pour fonctionner
+        const mapStyle = mapType || 'streets-v11'; // Assurer un style par défaut
+        console.log("Style de carte utilisé:", mapStyle);
+
+        // Création de la carte
+        map.current = new window.mapboxgl.Map({
+          container: container,
+          style: `mapbox://styles/mapbox/${mapStyle}`,
+          center: [46.7, -19.0], // Madagascar
+          zoom: 5.5,
+          failIfMajorPerformanceCaveat: false, // Essayer de charger même avec des performances limitées
+          preserveDrawingBuffer: true
+        });
+
+        // Ajouter des contrôles
+        map.current.addControl(new window.mapboxgl.NavigationControl());
+        
+        // Événements de carte pour le débogage
+        map.current.on('load', () => {
+          console.log("Carte chargée avec succès");
+          setMapStatus("chargée");
+
+          // Vérifier les couches chargées
+          const layers = map.current.getStyle().layers;
+          console.log("Couches de carte chargées:", layers ? layers.length : 0);
+
+          // Afficher les marqueurs après le chargement de la carte
+          displayMarkers();
+        });
+        
+        map.current.on('error', (e) => {
+          console.error("Erreur Mapbox:", e);
+          setMapStatus("erreur");
+          setError(`Erreur de carte: ${e.error?.message || 'Erreur inconnue'}`);
+        });
+        
+        // Test de visibilité de la carte
+        setTimeout(() => {
+          if (map.current) {
+            const canvas = map.current.getCanvas();
+            console.log("Canvas de carte trouvé:", !!canvas);
+            if (canvas) {
+              console.log("Dimensions du canvas:", canvas.width, "x", canvas.height);
+              // Vérifier si la carte a une taille non nulle
+              if (canvas.width === 0 || canvas.height === 0) {
+                console.error("La carte a une taille nulle");
+                setError("La carte a une taille nulle. Vérifiez le CSS.");
+              }
+            }
+          }
+        }, 1000);
+      } catch (error) {
+        console.error("Erreur lors de l'initialisation de la carte:", error);
+        setMapStatus("erreur");
+        setError("Erreur d'initialisation: ${error.message}");
+      }
+    };
+
+    // Initialiser immédiatement si Mapbox est chargé
+    if (window.mapboxgl && mapboxLoaded.current) {
+      console.log("Mapbox GL est chargé, initialisation de la carte");
+      initializeMap();
+    } else {
+      console.log("En attente du chargement de Mapbox GL...");
+    }
+  }, [mapType, displayMarkers]); // Maintenant c'est sûr d'inclure displayMarkers
 
   // Fonction pour générer une couleur en fonction du niveau de pollution
   const getPollutionColor = (level) => {

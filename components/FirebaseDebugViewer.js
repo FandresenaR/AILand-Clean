@@ -164,7 +164,7 @@ const FirebaseDebugViewer = ({ path = 'locations', maxDepth = 3 }) => {
       return (
         <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded">
           <p className="text-yellow-700">
-            <strong>Note:</strong> Les données d'analyse sont incomplètes ou dans un format inattendu.
+            <strong>Note:</strong> Les données d&apos;analyse sont incomplètes ou dans un format inattendu.
             Voici les sections disponibles:
           </p>
           <ul className="list-disc pl-5 mt-2">
@@ -188,7 +188,7 @@ const FirebaseDebugViewer = ({ path = 'locations', maxDepth = 3 }) => {
 
     return (
       <div className="mt-4">
-        <h3 className="text-lg font-semibold mb-3">Résultats d'analyse environnementale</h3>
+        <h3 className="text-lg font-semibold mb-3">Résultats d&apos;analyse environnementale</h3>
         
         {/* Tendances de pollution */}
         <div className="mb-4">
@@ -269,8 +269,8 @@ const FirebaseDebugViewer = ({ path = 'locations', maxDepth = 3 }) => {
                     <th className="py-2 px-4 border-b text-left">Pollution moyenne</th>
                     <th className="py-2 px-4 border-b text-left">Nombre de sites</th>
                     <th className="py-2 px-4 border-b text-left">Population</th>
-                    <th className="py-2 px-4 border-b text-left">Qualité de l'eau</th>
-                    <th className="py-2 px-4 border-b text-left">Niveau d'assainissement</th>
+                    <th className="py-2 px-4 border-b text-left">Qualité de l&apos;eau</th>
+                    <th className="py-2 px-4 border-b text-left">Niveau d&apos;assainissement</th>
                     <th className="py-2 px-4 border-b text-left">Tendance</th>
                   </tr>
                 </thead>
@@ -358,8 +358,8 @@ const FirebaseDebugViewer = ({ path = 'locations', maxDepth = 3 }) => {
       return (
         <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded">
           <p className="text-yellow-700">
-            <strong>Note:</strong> Ces données ont une structure complexe qui n'est pas adaptée à un affichage en tableau.
-            Utilisez l'affichage JSON pour explorer les détails.
+            <strong>Note:</strong> Ces données ont une structure complexe qui n&apos;est pas adaptée à un affichage en tableau.
+            Utilisez l&apos;affichage JSON pour explorer les détails.
           </p>
         </div>
       );

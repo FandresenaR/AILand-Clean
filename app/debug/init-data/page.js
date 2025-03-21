@@ -37,8 +37,8 @@ export default function InitDataPage() {
       
       <div className="bg-blue-50 border-l-4 border-blue-500 text-blue-700 p-4 mb-6">
         <p className="font-bold">Information</p>
-        <p>Cette page vous permet d'initialiser des données d'exemple dans votre base de données Firebase.</p>
-        <p>Cela créera des emplacements et des résultats d'analyse fictifs que vous pourrez visualiser.</p>
+        <p>Cette page vous permet d&apos;initialiser des données d&apos;exemple dans votre base de données Firebase.</p>
+        <p>Cela créera des emplacements et des résultats d&apos;analyse fictifs que vous pourrez visualiser.</p>
       </div>
       
       <div className="mb-6">
@@ -85,7 +85,7 @@ export default function InitDataPage() {
       
       {results.analysis !== null && (
         <div className="mb-4">
-          <h2 className="text-lg font-semibold">Données d'analyse:</h2>
+          <h2 className="text-lg font-semibold">Données d&apos;analyse:</h2>
           <div className={`mt-2 p-2 rounded ${results.analysis ? 'bg-green-50 text-green-800' : 'bg-red-50 text-red-800'}`}>
             {results.analysis ? 'Initialisées avec succès' : 'Échec de l\'initialisation'}
           </div>
@@ -97,7 +97,7 @@ export default function InitDataPage() {
           Retour au débogueur
         </Link>
         <Link href="/" className="px-4 py-2 bg-gray-200 hover:bg-gray-300 rounded">
-          Retour à l'accueil
+          Retour à l&apos;accueil
         </Link>
       </div>
     </div>

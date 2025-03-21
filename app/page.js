@@ -228,7 +228,7 @@ export default function Home() {
                   <div className={`p-4 rounded-lg ${darkMode ? 'bg-blue-900' : 'bg-blue-50'}`}>
                     <h4 className="font-bold mb-2">Facteurs de risque environnementaux</h4>
                     <ul className="list-disc pl-5 space-y-1">
-                      <li>Manque d'infrastructures sanitaires dans les zones urbaines à forte densité</li>
+                      <li>Manque d&apos;infrastructures sanitaires dans les zones urbaines à forte densité</li>
                       <li>Pollution des eaux de surface dans les régions côtières</li>
                       <li>Déforestation et érosion des sols dans les zones forestières</li>
                       <li>Vulnérabilité accrue aux événements climatiques extrêmes</li>
@@ -240,7 +240,7 @@ export default function Home() {
                     <ul className="list-disc pl-5 space-y-1">
                       <li>Installation de 500 nouvelles latrines dans les zones rurales critiques</li>
                       <li>Développement de systèmes de traitement des eaux usées dans les villes côtières</li>
-                      <li>Campagnes de sensibilisation sur les pratiques d'hygiène</li>
+                      <li>Campagnes de sensibilisation sur les pratiques d&apos;hygiène</li>
                       <li>Reboisement dans les zones à forte érosion</li>
                     </ul>
                   </div>
@@ -249,10 +249,10 @@ export default function Home() {
                 <div className={`mt-6 p-4 rounded-lg ${darkMode ? 'bg-purple-900' : 'bg-purple-50'}`}>
                   <h4 className="font-bold mb-2">Impact social et économique</h4>
                   <p>
-                    L'amélioration des conditions sanitaires pourrait réduire les maladies d'origine hydrique de 35% 
+                    L&apos;amélioration des conditions sanitaires pourrait réduire les maladies d&apos;origine hydrique de 35% 
                     et augmenter la productivité économique de 12% dans les régions ciblées. Chaque dollar investi 
-                    dans l'assainissement génère un retour de 5,5 dollars en termes de réduction des coûts de santé 
-                    et d'augmentation de la productivité.
+                    dans l&apos;assainissement génère un retour de 5,5 dollars en termes de réduction des coûts de santé 
+                    et d&apos;augmentation de la productivité.
                   </p>
                 </div>
               </div>
